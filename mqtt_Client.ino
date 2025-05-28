@@ -3,50 +3,46 @@
 #include <SPIFFS.h>
 
 
-// CONFIGURACIÓN WIFI
+// Credentials of Wi-Fi
 const char* ssid = "";
 const char* password = "";
 
 
-// CONFIGURACIÓN MQTT
+// MQTT Specifications
 const char* mqttServer = "";
 const uint16_t mqttPort = 1883; //No TLS
 const char* mqttTopic = "esp32/ag1";
 
 
-//Funciones
+// Funtions
 void initWifi();
 void mqtt_Reconect();
 void sendImage();
 
 
-//Objetos
+//Objects
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
 
 
 void setup() {
  
-  //Inicializas la velocidad de operatividad del micro
+  //Inicialize the baudrate of ESP32
   Serial.begin(115200);
 
-//Evaluas si lee correctamente de la memoria la imagen precargada
-// (No usamos SD)
+//Evaluate an image upload with SPIFFS
   if (!SPIFFS.begin(true)) {  
     Serial.println("Error al inicializar SPIFFS");
     return;
   }
  
-  //Asignas IP y puerto de servicio del broker MQTT
+  //Set the IP and Port for connection (Broker)
   mqttClient.setServer(mqttServer, mqttPort);
   
- //Debido a que el dispositivo opera con tecnología WiFi, 
- // asignas credenciales de acceso al medio
   initWifi(); 
-  mqtt_Reconect(); //Aseguramos la conectividad al broker
+  mqtt_Reconect(); //Inicialize the client against the broker
   
- //La imagen cargada a la flash se manda
-  sendImage("/ag1.png"); 
+  sendImage("/"); 
 }
 
 
@@ -57,7 +53,6 @@ void loop() {
   mqttClient.loop();
 }
 
-//Función de conexión por WiFi empleando credenciales
 void initWifi(){ 
   // Conectar WiFi
   Serial.print("Conectando a ...");
@@ -70,51 +65,50 @@ void initWifi(){
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("Conexión establecida");
-  Serial.println("Dirección IP: ");
+  Serial.println("Connection established");
+  Serial.println("IP Address: ");
   Serial.println(WiFi.localIP());
   }
 
 
-  void mqtt_Reconect(){ //Función de conectividad al broker
+  void mqtt_Reconect(){ 
 
 
    while(!mqttClient.connected()){
    
-    Serial.println("Conectando al servidor MQTT ...");
+    Serial.println("Connecting to broker MQTT ...");
    
     if(mqttClient.connect("esp32")){
-      Serial.println("Conectado");
-      /*Topicos a los que suscribirse*/
+      Serial.println("Connected");
+     
+      //Assign the topic where did u want subscribe
       mqttClient.subscribe(mqttTopic);
     }
     else{
-    Serial.println("Fallo al iniciar sesión");
+    Serial.println("Cannot be connected!");
     Serial.println(mqttClient.state());
     delay(5000);
       }
     }
   }
 
-// Función encarga de obtener la imagen y mandarla de manera
-// fragmentada debido a sus limitaciones
 void sendImage(const char* path) {  
   File file = SPIFFS.open(path);
   if (!file || file.isDirectory()) {
-    Serial.println("Fallo al abrir la imagen");
+    Serial.println("Fail to open an image");
     return;
   }
 
-  Serial.println("Enviando imagen por MQTT...");
+  Serial.println("Send image to broker ...");
 
   while (file.available()) {
     size_t len = 512;
     uint8_t buf[len];
     size_t readBytes = file.read(buf, len);
     mqttClient.publish(mqttTopic, buf, readBytes);
-    delay(100); // Para evitar saturar el broker
+    delay(100); // Assigned for not satured a broker with rate of packet for unit of time
   }
 
   file.close();
-  Serial.println("Imagen enviada.");
+  Serial.println("Image send.");
 }
