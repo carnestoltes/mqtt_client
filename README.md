@@ -34,13 +34,19 @@ You need to create a folder with picture named *data* from upload the image usin
 The last step, remember to fill in the code your SSID, password, IP of broker MQTT, port of service (without TLS is 1883 for default), the topic or topics and name of image with extension (you should put in the folder and upload previously).
 
 **Wi-Fi**
+
 const char* ssid = "";
+
 const char* password = "";
 
 **MQTT**
+
 const char* mqttServer = "";
+
 const uint16_t mqttPort = 1883; //No TLS
+
 const char* mqttTopic = "esp32/ag1";
 
 **Image**
+
 sendImage("");
