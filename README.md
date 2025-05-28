@@ -4,8 +4,8 @@
 
 An important aspect did u know for using this features:
 
-![NOTE]
 If you use an IDE from Arduino, you need use the latest version allow the feature of **ESP32 Sketch Data Upload**, that its a 1.8.18.
+
 The url you can find it actually is: [PREVIOUS ARDUINO IDE's](https://www.arduino.cc/en/software/OldSoftwareReleases/) 
 
 In other hand, for use the utility, you need to download the *.jar* and include in your IDE. The follow steps explains how to do it:
@@ -15,8 +15,7 @@ In other hand, for use the utility, you need to download the *.jar* and include 
 3. Copy the unzip folder previously download in step one into this folder (create in step 2)
 4. Verificate, the finally path from the file is similar to ~/tools/ESP32FS/tool
 
-![IMPORTANT]
-It's mandatory follow the structure of path for include the tool into the IDE describe in the previous steps.
+**It's mandatory follow the structure of path for include the tool into the IDE describe in the previous steps.**
 
 Finally, if you make all the previous steps, if you reload the IDE, in section **Tools**, you should see the feature.
 
