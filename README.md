@@ -1,8 +1,6 @@
 # Simple MQTT Client for ESP32 using SPIFFS
 
-## A simple program for use a SPIFFS on your ESP32 for upload and transmit an image using MQTT (pub/sub)
-
-An important aspect did u know for using this features:
+## Prerequisites
 
 If you use an IDE from Arduino, you need use the latest version allow the feature of **ESP32 Sketch Data Upload**, that its a 1.8.18.
 
@@ -31,4 +29,18 @@ A short brief of hirarchy in the memory using SPIFFS.
 
 You need to create a folder with picture named *data* from upload the image using the tools previously you should keep available or installed, like the picture of Structure of Arduino Project.
 
+## A simple program for use a SPIFFS on your ESP32 for upload and transmit an image using MQTT (pub/sub)
 
+The last step, remember to fill in the code your SSID, password, IP of broker MQTT, port of service (without TLS is 1883 for default), the topic or topics and name of image with extension (you should put in the folder and upload previously).
+
+**Wi-Fi**
+const char* ssid = "";
+const char* password = "";
+
+**MQTT**
+const char* mqttServer = "";
+const uint16_t mqttPort = 1883; //No TLS
+const char* mqttTopic = "esp32/ag1";
+
+**Image**
+sendImage("");
