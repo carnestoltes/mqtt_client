@@ -23,6 +23,7 @@ Finally, if you make all the previous steps, if you reload the IDE, in section *
 For use correctly the tool, you should keep in mind a structure of folders for include the picture you want upload to the microcontroler, so lets see a diagram thats explain how to build your project properly.
 
 ![Hirarchy of Memory](https://github.com/user-attachments/assets/2e5b4e27-3671-4640-889c-9f8e0a889fd2)
+
 A short brief of hirarchy in the memory using SPIFFS
 
 ![Structure of Arduino Project](https://github.com/user-attachments/assets/09a1581c-70e7-4fd6-8b66-e5fd89a1cd15)
