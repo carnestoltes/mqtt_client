@@ -15,7 +15,7 @@ In other hand, for use the utility, you need to download the *.jar* and include 
 3. Copy the unzip folder previously download in step one into this folder (create in step 2)
 4. Verificate, the finally path from the file is similar to ~/tools/ESP32FS/tool
 
-[!WARNING] 
+[!IMPORTANT]
 It's mandatory follow the structure of path for include the tool into the IDE describe in the previous steps.
 
 Finally, if you make all the previous steps, if you reload the IDE, in section **Tools**, you should see the feature.
