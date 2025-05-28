@@ -27,7 +27,7 @@ A short brief of hirarchy in the memory using SPIFFS.
 
 ![Structure of Arduino Project](https://github.com/user-attachments/assets/09a1581c-70e7-4fd6-8b66-e5fd89a1cd15)
 
-You need to create a folder with picture named *data* from upload the image using the tools previously you should keep available or installed, like the picture of Structure of Arduino Project.
+You need to create a folder with picture named *data* for upload the image using the tools previously you should keep available or installed, like the picture of Structure of Arduino Project.
 
 ## A simple program for use a SPIFFS on your ESP32 for upload and transmit an image using MQTT (pub/sub)
 
