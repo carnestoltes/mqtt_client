@@ -1,6 +1,6 @@
 # Simple MQTT Client for ESP32 using SPIFFS
 
-##A simple program for use a SPIFFS on your ESP32 for upload and transmit an image using MQTT (pub/sub)
+## A simple program for use a SPIFFS on your ESP32 for upload and transmit an image using MQTT (pub/sub)
 
 An important aspect did u know for using this features:
 
@@ -19,3 +19,11 @@ In other hand, for use the utility, you need to download the *.jar* and include 
 Finally, if you make all the previous steps, if you reload the IDE, in section **Tools**, you should see the feature.
 
 ## Using SPIFFS for upload an image to ESP32
+
+For use correctly the tool, you should keep in mind a structure of folders for include the picture you want upload to the microcontroler, so lets see a diagram thats explain how to build your project properly.
+
+![Hierarchy of memory in ESP32](https://github.com/user-attachments/assets/48b3fde9-179d-4db1-be1a-62f875f3a4f5)
+
+![Structure of Arduino Project](https://github.com/user-attachments/assets/09a1581c-70e7-4fd6-8b66-e5fd89a1cd15)
+
+
