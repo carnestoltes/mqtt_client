@@ -11,7 +11,7 @@ const char* password = "";
 // MQTT Specifications
 const char* mqttServer = "";
 const uint16_t mqttPort = 1883; //No TLS
-const char* mqttTopic = "esp32/ag1";
+const char* mqttTopic = "esp32/";
 
 
 // Funtions
