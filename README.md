@@ -11,10 +11,10 @@ An embedded MQTT client running on an **ESP32** microcontroller that stores an i
 
 ## What it does
 
-The ESP32 connects to a Wi-Fi network, mounts its internal SPIFFS filesystem, reads a pre-loaded image file, and publishes it as a binary payload to a configured MQTT topic. This demonstrates the full pipeline of an edge IoT device: local storage → protocol encoding → broker publish.
+The ESP32 connects to a Wi-Fi network, mounts its internal SPIFFS filesystem, reads a pre-loaded image file, and publishes it as a binary payload to a configured MQTT topic. 
 
 ```
-ESP32 (SPIFFS image) ──MQTT pub──► Broker ──MQTT sub──► Any subscriber (dashboard, server, cloud)
+ESP32 (SPIFFS image) ── MQTT pub ──► Broker ── MQTT sub ──► Any subscriber (dashboard, server, cloud)
 ```
 
 ---
