@@ -1,52 +1,76 @@
-# Simple MQTT Client for ESP32 using SPIFFS
+# MQTT Image Client for ESP32
 
-## Prerequisites
+[![C++](https://img.shields.io/badge/C++-ESP32-blue?logo=cplusplus&logoColor=white)](https://www.arduino.cc/)
+[![Protocol](https://img.shields.io/badge/Protocol-MQTT-660066?logo=eclipse-mosquitto&logoColor=white)]()
+[![Platform](https://img.shields.io/badge/Platform-ESP32-E7352C)]()
+[![License](https://img.shields.io/badge/License-GPL--3.0-green)](LICENSE)
 
-If you use an IDE from Arduino, you need use the latest version allow the feature of **ESP32 Sketch Data Upload**, that its a 1.8.18.
+An embedded MQTT client running on an **ESP32** microcontroller that stores an image in the device filesystem (SPIFFS) and transmits it over MQTT publish/subscribe to a broker. Useful as a base template for IoT edge devices that need to push binary or image payloads over a lightweight protocol.
 
-The url you can find it actually is: [PREVIOUS ARDUINO IDE's](https://www.arduino.cc/en/software/OldSoftwareReleases/) 
+---
 
-In other hand, for use the utility, you need to download the *.jar* and include in your IDE. The follow steps explains how to do it:
+## What it does
 
-1. Download the file from [ESP32fs](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases/)
-2. Find your sketchbook location and create a directory naming *tools*
-3. Copy the unzip folder previously download in step one into this folder (create in step 2)
-4. Verificate, the finally path from the file is similar to ~/tools/ESP32FS/tool
+The ESP32 connects to a Wi-Fi network, mounts its internal SPIFFS filesystem, reads a pre-loaded image file, and publishes it as a binary payload to a configured MQTT topic. This demonstrates the full pipeline of an edge IoT device: local storage → protocol encoding → broker publish.
 
-**It's mandatory follow the structure of path for include the tool into the IDE describe in the previous steps.**
+```
+ESP32 (SPIFFS image) ──MQTT pub──► Broker ──MQTT sub──► Any subscriber (dashboard, server, cloud)
+```
 
-Finally, if you make all the previous steps, if you reload the IDE, in section **Tools**, you should see the feature.
+---
 
-## Using SPIFFS for upload an image to ESP32
+## Hardware requirements
 
-For use correctly the tool, you should keep in mind a structure of folders for include the picture you want upload to the microcontroler, so lets see a diagram thats explain how to build your project properly.
+- ESP32 development board (any variant with Wi-Fi)
+- Arduino IDE 1.8.18 (required for ESP32 Sketch Data Upload plugin)
+- [ESP32FS plugin](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases/) installed in the Arduino IDE
 
-![Hirarchy of Memory](https://github.com/user-attachments/assets/2e5b4e27-3671-4640-889c-9f8e0a889fd2)
+---
 
-A short brief of hirarchy in the memory using SPIFFS.
+## Project structure
 
-![Structure of Arduino Project](https://github.com/user-attachments/assets/09a1581c-70e7-4fd6-8b66-e5fd89a1cd15)
+```
+mqtt_client/
+├── data/               ← Place your image here before uploading to SPIFFS
+│   └── image.jpg
+├── mqtt_Client.ino     ← Main sketch
+└── README.md
+```
 
-You need to create a folder with picture named *data* for upload the image using the tools previously you should keep available or installed, like the picture of Structure of Arduino Project.
+---
 
-## A simple program for use a SPIFFS on your ESP32 for upload and transmit an image using MQTT (pub/sub)
+## Configuration
 
-The last step, remember to fill in the code your SSID, password, IP of broker MQTT, port of service (without TLS is 1883 for default), the topic or topics and name of image with extension (you should put in the folder and upload previously).
+Open `mqtt_Client.ino` and fill in your credentials before flashing:
 
-**Wi-Fi**
+```cpp
+// Wi-Fi
+const char* ssid     = "YOUR_SSID";
+const char* password = "YOUR_PASSWORD";
 
-const char* ssid = "";
+// MQTT broker
+const char* mqttServer = "192.168.x.x";     // IP of your broker
+const uint16_t mqttPort = 1883;              // Default non-TLS port
+const char* mqttTopic = "esp32/image";       // Topic to publish to
 
-const char* password = "";
+// Image filename (must match the file you uploaded to SPIFFS)
+sendImage("image.jpg");
+```
 
-**MQTT**
+---
 
-const char* mqttServer = "";
+## SPIFFS image upload — step by step
 
-const uint16_t mqttPort = 1883; //No TLS
+1. Install the [ESP32FS plugin](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases/) by placing the `.jar` inside `~/Arduino/tools/ESP32FS/tool/`
+2. Create a `data/` folder inside your sketch directory
+3. Place your image inside `data/`
+4. In Arduino IDE: **Tools → ESP32 Sketch Data Upload**
+5. Flash the sketch normally
 
-const char* mqttTopic = "esp32/";
+The image must be uploaded to SPIFFS before the sketch runs — the device reads it from local storage at boot.
 
-**Image**
+---
 
-sendImage("");
+## Topics
+
+`esp32` `mqtt` `iot` `embedded` `c-plus-plus` `raspberry-pi` `arduino` `spiffs` `edge-computing`
